@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Tareas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Gestor de Tareas</h1>
+</header>
+
+<main>
+  <!-- Registro -->
+  <section id="registro">
+    <h2>Registrarse</h2>
+    <input type="text" id="regUsername" placeholder="Usuario" required>
+    <input type="text" id="regName" placeholder="Nombre completo" required>
+    <input type="email" id="regEmail" placeholder="Email" required>
+    <input type="password" id="regPassword" placeholder="Contraseña" required>
+    <button onclick="register()">Registrar</button>
+    <p id="registroResult"></p>
+  </section>
+
+  <!-- Login -->
+  <section id="login">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="loginUsername" placeholder="Usuario" required>
+    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+    <button onclick="login()">Entrar</button>
+    <p id="loginResult"></p>
+  </section>
+
+  <!-- Gestión de tareas -->
+  <section id="taskSection" style="display:none;">
+    <h2>Mis Tareas</h2>
+
+    <!-- Crear tarea -->
+    <div>
+      <form id="taskForm" onsubmit="event.preventDefault();">
+  <input type="text" id="taskTitle" placeholder="Título" required>
+  <textarea id="taskDescription" placeholder="Descripción"></textarea>
+  <input type="date" id="taskDueDate" required>
+
+  <select id="taskPriority">
+    <option value="HIGH">Alta</option>
+    <option value="MEDIUM">Media</option>
+    <option value="LOW">Baja</option>
+  </select>
+
+  <select id="taskStatus">
+    <option value="PENDING">Pendiente</option>
+    <option value="DOING">En Progreso</option>
+    <option value="DONE">Completada</option>
+  </select>
+
+  <!-- botón de crear que ya llama a createTask() -->
+  <button type="button" id="saveTaskBtn" onclick="createTask()">➕ Crear Tarea</button>
+
+  <!-- botón para actualizar que usa los valores del mismo formulario -->
+  <button type="button" id="updateTaskBtn" onclick="updateTask()">💾 Guardar cambios</button>
+</form>
+    </div>
+
+    <hr>
+
+    <!-- Lista de tareas -->
+    <div id="tasksList"></div>
+
+    <button onclick="location.reload()">🚪 Cerrar sesión</button>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

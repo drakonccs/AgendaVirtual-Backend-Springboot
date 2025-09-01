@@ -1,0 +1,38 @@
+
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: tareas-mysql
+    environment:
+      MYSQL_DATABASE: tareas
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3307:3306"   # Cambiado a 3307 en el host
+    volumes:
+      - db-data:/var/lib/mysql
+   
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tareas-app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tareas
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_APPLICATION_NAME: p3tareas
+      SECURITY_JWT_EXPIRATION_MINUTES: 30
+      SECURITY_JWT_SECRET_KEY: bWkgY2xhdmUgZXMgbXV5IHNlZ3VyYSAxMjM0NTY3ODkgQUJDYWJj
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  db-data:
